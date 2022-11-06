@@ -4,6 +4,15 @@ import axios from "axios"
 import WordCloud from "react-d3-cloud";
 
 
+const fontSize = (word) => {
+  console.log(word);
+  return word.value / 300;
+};
+
+const rotate = (word) =>{
+  return (word.value % 90) - 45;
+}
+
 function App() {
   const [twitterData,setTwitterData] = useState();
 
@@ -12,18 +21,22 @@ function App() {
       const res = await axios.get("http://localhost:3500/stats");
       const data= res.data;
       setTwitterData(data);
-      console.log(data);
+      // console.log(data);
     }
     fetchData();
   },[])
 
   const hashTagsWithValue = twitterData?.twitter?.timelineStats?.timeline[0].hashtags
-  console.log(hashTagsWithValue)
+  // console.log(hashTagsWithValue)
 
-  // const hashtags = Object?.keys(hashTagsWithValue).map((value)=>{
-  //   console.log(hashtags)
-  // })
- 
+  let hashtags=[]
+  if(hashTagsWithValue){
+    hashtags = Object.keys(hashTagsWithValue).map((data)=>{
+      return { text: data, value:1000*hashTagsWithValue[data]}
+      }
+     )
+     console.log(hashtags)
+  }
 
 
 const data=[{
@@ -39,10 +52,10 @@ const data=[{
   return (
     <WordCloud
     width={1000}
-    height={750}
-    data={data}
-    fontSize={100}
-    rotate={150}
+    height={1000}
+    data={hashtags}
+    fontSize={fontSize}
+    rotate={rotate}
     padding={2}
     />
   );
