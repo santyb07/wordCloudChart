@@ -6,7 +6,11 @@ import WordCloud from "react-d3-cloud";
 
 const fontSize = (word) => {
   console.log(word);
-  return word.value / 300;
+  if(word.value<3000){
+    return 12;
+  }else{
+    return word.value / 300;
+  }
 };
 
 const rotate = (word) =>{
@@ -51,12 +55,13 @@ const data=[{
 
   return (
     <WordCloud
-    width={1000}
-    height={1000}
+    width={300}
+    height={500}
     data={hashtags}
     fontSize={fontSize}
-    rotate={rotate}
+    rotate='0'
     padding={2}
+    fill={'blue'}
     />
   );
 }
