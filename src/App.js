@@ -55,8 +55,8 @@ const data=[{
 
   return (
     <WordCloud
-    width={300}
-    height={500}
+    width={1000}
+    height={50}
     data={hashtags}
     fontSize={fontSize}
     rotate='0'
